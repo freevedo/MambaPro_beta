@@ -1,30 +1,34 @@
 <?php 
 
-require ('models/Autoloader.php');
+//redefinir l'url pour la rendre plus propre 
+define('URL',str_replace("index.php","",(isset($_SERVER['HTTPS'])?"https" : "http"). "://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]"));
 
-Autoloader::register();
+require_once('controllers/Router.php');
+$router = new Router();
+$router->routeReq();
 
-$url = '';
 
-if(isset($_GET['url'])){
-    $url = $_GET['url'];
-}
-else{
-  $url = 'home';
-}
+// $url = '';
 
-ob_start();
+// if(isset($_GET['url'])){
+//     $url = $_GET['url'];
+// }
+// else{
+//   $url = 'home';
+// }
 
-if ($url === 'home')
-{
-  require ('views/home.php');
-}
-else if($url === 'apply'){
-  require ('views/apply.php');
-}
-else if($url === 'portfolio'){
-  require('views/portfolio-details.php');
-}
-$content = ob_get_clean();
+// ob_start();
 
-require('templates/default.php');
+// if ($url === 'home')
+// {
+//   require ('views/home.php');
+// }
+// else if($url === 'apply'){
+//   require ('views/apply.php');
+// }
+// else if($url === 'portfolio'){
+//   require('views/portfolio-details.php');
+// }
+// $content = ob_get_clean();
+
+// require('templates/default.php');

@@ -1,25 +1,43 @@
 <?php
-/**
- * Router control all the controllers using autoloader
- */
-class Router{
-    private $ctrl;
-    private $view;
-    
+    require_once('views/View.php');    
     /**
-     * routeReq 
-     *
-     * @return void
+     * Router
+     * controlle tous les controlleurs et se charge dappeler le bon controleur
      */
-    public function routeReq()
-    {
-        try{
-            $url = '';
-            if(isset($_GET['url']))
+    class Router 
+    {        
+        /**
+         * _ctrl
+         * _view
+         * @var mixed
+         */
+        private $_ctrl;
+        private $_view;
+        
+        /**
+         * routeReq
+         *
+         * @return void
+         */
+        public function routeReq()
+        {
+            try
             {
-                $url = explode('/',filter_var($_GET['url'],FILTER_SANITIZE_URL));
-                $controller = ucfirst(strtolower($url[0]));
-                $controllerClass = "Controller".$controller;
+                //chargement automatique des classes
+                spl_autoload_register(function($class){
+                    require_once('models/'.$class.'.php');
+                });
+
+                $url = '';
+                //controlller les differentes actions de l'user
+                if(isset($_GET['url']))
+                {
+                    //recuperer tous les parametres de lurl de facon separer et securiser ce que l'on recupere
+                    $url = explode('/',filter_var($_GET['url'],FILTER_SANITIZE_URL));
+
+                    //gere l'appel du bon controller suivant l'action de l'utilisateur
+                    $controller = ucfirst(strtolower($url[0]));
+                    $controllerClass = "Controller".$controller;
                     $controllerFile  = "controllers/".$controllerClass.".php";
 
                     //verify if file exist
@@ -32,22 +50,20 @@ class Router{
                     {
                         throw new Exception('Page introuvable');
                     }
-                
+                }
+                else//charge la page de defaut lorsque on fait pas appel a une page en particulier
+                {
+                    require_once('controllers/ControllerHome.php');
+                    $this->_ctrl = new ControllerHome($url);
+                }
             }
-            else//charge la page de defaut lorsque on fait pas appel a une page en particulier
+            //gestion des erreurs
+            catch(Exception $e)
             {
-                require_once('controllers/ControllerHome.php');
-                $this->_ctrl = new ControllerHome($url);
+                $errorMsg = $e->getMessage();
+                $this->_view = new View('Error');
+                $this->_view->generate(array('errorMsg' => $errorMsg));
+                // require_once ('views/viewError.php');//charger page d'erreur
             }
-
-        }
-        //gestion des erreurs
-        catch(Exception $e)
-        {
-            $errorMsg = $e->getMessage();
-            $this->_view = new View('Error');
-            $this->_view->generate(array('errorMsg' => $errorMsg));
-            // require_once ('views/viewError.php');//charger page d'erreur
         }
     }
-}
