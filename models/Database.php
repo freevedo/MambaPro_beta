@@ -13,7 +13,7 @@
 
         private static $connection = null;
     
-        private static function connect()
+        public static function connect()
         {
             if(self::$connection == null)
             {
@@ -33,17 +33,4 @@
             self::$connection = null;
         }
 
-        // public function getAll($table,$obj)
-        // {
-        //     $db = Model::connect();
-        //     $var = [];
-        //     $req = $db->prepare('SELECT *FROM ' .$table. ' ORDER BY id desc');
-        //     $req->execute();
-        //     while($data = $req->fetch(PDO::FETCH_ASSOC))
-        //     {
-        //         $var[] = new $obj($data);
-        //     }
-        //     return $var;
-        //     $req->closeCursor();
-        // }
     }

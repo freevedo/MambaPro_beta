@@ -2,6 +2,7 @@
 require_once ('views/View.php');
 
     class ControllerHome{
+        private $_articleManager;
         private  $view;
         
         public function __construct($url)
@@ -19,9 +20,15 @@ require_once ('views/View.php');
         public function articles(){
             
 
-            // require_once ('views/viewHome.php');
-
-            $this->view = new View('Home');
-            $this->view->generate(array('articles'));
+            $this->_articleManager = new ArticleManager;
+            $hero1 = $this->_articleManager->getHero1();
+            $hero2    = $this->_articleManager->getHero2();
+            $hero3    = $this->_articleManager->getHero3();
+            // $this->_imageManager = new ImageManager;
+            // $images = $this->_imageManager->getImages();
+            
+            $this->_view = new View('Home');
+            $this->_view->generate(array('hero1' => $hero1,'hero2' => $hero2,'hero3' =>$hero3));
+            // require_once('views/viewHome.php');
         }
     }

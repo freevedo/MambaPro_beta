@@ -1,79 +1,76 @@
 <?php
-require_once ('Database.php');
-/**
- * Model
- * this class have the generals functions same functions
- */
-class Model{    
-      
-    /**
-     * getAll
-     * select all elements from a table and return them as a array
-     * @param  mixed $table
-     * @param  mixed $obj
-     * @return void
-     */
-    public function getAll($table,$obj){
-        $db  = Database::connect();
-        $var = [];
-        $req = $db->prepare('SELECT *FROM ' .$table. 'ORDER BY id desc');
-        $req->execute();
-        while($data = $req->fetch(PDO::FETCH_ASSOC)){
-            $var[] = new $obj($data);
-        }
-        return $var;
-        $req->closeCursor();
-    }    
+    require ('models/Database.php');
+    abstract class Model
+    {
+        // private static $_bdd;
+
+        // private static $dbHost = "localhost";
+        // private static $dbName = "mvc";
+        // private static $dbUsername = "root";
+        // private static $dbUserpassword = "";
+
+        // private static $connection = null;
     
-    /**
-     * getCategory
-     *
-     * select elements from a table through category
-     * @param  mixed $table
-     * @param  mixed $obj
-     * @param  mixed $param
-     * @return void
-     */
-    public function getCategory($table,$obj,$param){
-        $db  = Database::connect();
-        $var = [];
-        $req = $db->prepare('SELECT *FROM' .$table. 'WHERE category = ' .$param.'' );
-        $req->execute();
-        while($data = $req->fetch(PDO::FETCH_ASSOC)){
-            $var[] = new $obj($data);
+        // private static function connect()
+        // {
+        //     if(self::$connection == null)
+        //     {
+        //         try
+        //         {
+        //             self::$connection = new PDO("mysql:host=" . self::$dbHost . ";dbname=" . self::$dbName, self::$dbUsername, self::$dbUserpassword);
+        //         }
+        //         catch(PDOException $e)
+        //         {
+        //             die($e->getMessage());
+        //         }
+        //     }
+        //     return self::$connection;
+        // }
+        // public static function disconnect()
+        // {
+        //     self::$connection = null;
+        // }
+
+        public function getAll($table,$obj)
+        {
+            $db = Database::connect();
+            $var = [];
+            $req = $db->prepare('SELECT *FROM ' .$table. ' ORDER BY id desc');
+            $req->execute();
+            while($data = $req->fetch(PDO::FETCH_ASSOC))
+            {
+                $var[] = new $obj($data);
+            }
+            return $var;
+            $req->closeCursor();
         }
-        return $var;
-        $req->closeCursor();
-    }
+         
+        public function  getSpecifyId($table,$obj, $id)
+        {
+            $db = Database::connect();
+            $var = [];
+            $req = $db->prepare('SELECT *FROM ' .$table. ' WHERE id = ' .$id.  ' ');
+            $req->execute();
+            while($data = $req->fetch(PDO::FETCH_ASSOC))
+            {
+                $var[] = new $obj($data);
+            }
+            return $var;
+            $req->closeCursor();
+        }
+
+        public function  getSpecifyName($table,$obj,$param)
+        {
+            $db = Database::connect();
+            $var = [];
+            $req = $db->prepare('SELECT *FROM ' .$table. ' WHERE name = "'.$param.'" ');
+            $req->execute();
+            while($data = $req->fetch(PDO::FETCH_ASSOC))
+            {
+                $var[] = new $obj($data);
+            }
+            return $var;
+            $req->closeCursor();
+        }
         
-    /**
-     * getSpecifyId
-     *
-     * @param  mixed $table
-     * @param  mixed $obj
-     * @param  mixed $param
-     * @return void
-     */
-    public function getSpecifyId($table,$obj,$param){
-        $db  = Database::connect();
-        $var = [];
-        $req = $db->prepare('SELECT *FROM' .$table. 'WHERE id = ' .$param.'' );
-        $req->execute();
-        while($data = $req->fetch(PDO::FETCH_ASSOC)){
-            $var[] = new $obj($data);
-        }
-        return $var;
-        $req->closeCursor();
     }
-    public function getSpecifyName($table,$obj,$param){
-        $db  = Database::connect();
-        $var = [];
-        $req = $db->prepare('SELECT *FROM' .$table. 'WHERE name = ' .$param.'' );
-        $req->execute();
-        while($data = $req->fetch(PDO::FETCH_ASSOC)){
-            $var[] = new $obj($data);
-        }
-        return $var;
-        $req->closeCursor();
-    }
-}
