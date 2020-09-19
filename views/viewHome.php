@@ -10,7 +10,7 @@
         <div class="carousel-inner" role="listbox">
 
           <!-- Slide 1 -->
-          <div class="carousel-item active" style="background-image: url('views/assets/img/slide/slide-1.jpg');">
+          <div class="carousel-item active" style="background-image: url('views/assets/img/slide/<?= $slide1[0]->getTitle();?>');">
             <div class="carousel-container">
               <div class="carousel-content container">
              
@@ -22,7 +22,7 @@
           </div>
 
           <!-- Slide 2 -->
-          <div class="carousel-item" style="background-image: url('views/assets/img/slide/slide-2.jpg');">
+          <div class="carousel-item" style="background-image: url('views/assets/img/slide/<?= $slide2[0]->getTitle();?>');">
             <div class="carousel-container">
               <div class="carousel-content container">
                 <h2 class="animate__animated animate__fadeInDown"><?= $hero2[0]->getTitle();?></h2>
@@ -33,7 +33,7 @@
           </div>
 
           <!-- Slide 3 -->
-          <div class="carousel-item" style="background-image: url('views/assets/img/slide/slide-3.jpg');">
+          <div class="carousel-item" style="background-image: url('views/assets/img/slide/<?= $slide3[0]->getTitle();?>');">
             <div class="carousel-container">
               <div class="carousel-content container">
                 <h2 class="animate__animated animate__fadeInDown"><?= $hero3[0]->getTitle();?></h2>
@@ -73,20 +73,20 @@
           <div class="col-lg-6 d-flex flex-column justify-content-center about-content">
 
             <div class="section-title">
-              <h2>About Us</h2>
-              <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.</p>
+              <h2><?= $about1[0]->getTitle();?></h2>
+              <p><?= $about1[0]->getContent();?></p>
             </div>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
               <div class="icon"><i class="bx bx-fingerprint"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+              <h4 class="title"><a href=""><?= $about2[0]->getTitle();?></a></h4>
+              <p class="description"><?= $about2[0]->getContent();?></p>
             </div>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
               <div class="icon"><i class="bx bx-gift"></i></div>
-              <h4 class="title"><a href="">Nemo Enim</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+              <h4 class="title"><a href=""><?= $about3[0]->getTitle();?></a></h4>
+              <p class="description"><?= $about3[0]->getContent();?></p>
             </div>
 
           </div>
@@ -101,7 +101,23 @@
 
         <div class="row no-gutters">
 
-          <div class="col-lg-4 col-md-6 content-item" data-aos="fade-up">
+          <?php 
+          /**
+           * 
+           * $x to count and write tht number of the service
+           * $y to count and set the fade and delay
+           */
+          $x = 1; $y=0;
+             foreach($services as $service): ?>
+               
+              <div class="col-lg-4 col-md-6 content-item" data-aos="fade-up" data-aos-delay="<?= $y?>">
+               <span><?= $x ?></span>
+               <h4><?= $service->getTitle()?></h4>
+               <p><?= $service->getContent()?></p>
+             </div>
+          <?php $x++ ; $y+=100; endforeach; ?>
+
+          <!-- <div class="col-lg-4 col-md-6 content-item" data-aos="fade-up">
             <span>01</span>
             <h4>Lorem Ipsum</h4>
             <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat</p>
@@ -135,7 +151,7 @@
             <span>06</span>
             <h4>Facilis Impedit</h4>
             <p>Quis eum numquam veniam ea voluptatibus voluptas. Excepturi aut nostrum repudiandae voluptatibus corporis sequi</p>
-          </div>
+          </div> -->
 
         </div>
 

@@ -44,12 +44,26 @@
             return $var;
             $req->closeCursor();
         }
+
          
         public function  getSpecifyId($table,$obj, $id)
         {
             $db = Database::connect();
             $var = [];
             $req = $db->prepare('SELECT *FROM ' .$table. ' WHERE id = ' .$id.  ' ');
+            $req->execute();
+            while($data = $req->fetch(PDO::FETCH_ASSOC))
+            {
+                $var[] = new $obj($data);
+            }
+            return $var;
+            $req->closeCursor();
+        }
+        public function  getSpecifyCategory($table,$obj, $category)
+        {
+            $db = Database::connect();
+            $var = [];
+            $req = $db->prepare('SELECT *FROM ' .$table. ' WHERE category = ' .$category.  ' ');
             $req->execute();
             while($data = $req->fetch(PDO::FETCH_ASSOC))
             {

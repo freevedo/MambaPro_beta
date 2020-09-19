@@ -18,4 +18,20 @@
         {
             return $this->getSpecifyName('articles','Article','hero3');
         }
+        public function getAbout1()
+        {
+            return $this->getSpecifyName('articles','Article','about1');
+        }
+        public function getAbout2()
+        {
+            return $this->getSpecifyName('articles','Article','about2');
+        }
+        public function getAbout3()
+        {
+            return $this->getSpecifyName('articles','Article','about3');
+        }
+        public function getServices()
+        {
+            return $this->getSpecifyCategory('articles','Article',3);
+        }
     }
