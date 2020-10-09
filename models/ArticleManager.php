@@ -30,8 +30,20 @@
         {
             return $this->getSpecifyName('articles','Article','about3');
         }
-        public function getServices()
+        public function getAboutLists()
         {
             return $this->getSpecifyCategory('articles','Article',3);
+        }
+        public function getServices()
+        {
+            return $this->getSpecifyCategory('articles','Article',4);
+        }
+        public function getFaq()
+        {
+            return $this->getSpecifyCategory('articles','Article',6);
+        }
+        public function getPortfolio()
+        {
+            return $this->getSpecifyCategory('articles','Article',5);
         }
     }

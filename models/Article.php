@@ -14,7 +14,7 @@
         private $_id;
         private $_title;
         private $_content;
-        
+        private $_name;
         /**
          * __construct
          *
@@ -67,6 +67,11 @@
             if(is_string($content))
                 $this->_content = $content;
         }
+        public function setName($name)
+        {
+            if(is_string($name))
+                $this->_name = $name;
+        }
 
         //GETTERS
         
@@ -96,5 +101,9 @@
         public function getContent()
         {
             return $this->_content;
+        }
+        public function getName()
+        {
+            return $this->_name;
         }
     }

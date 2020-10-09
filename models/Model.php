@@ -86,5 +86,18 @@
             return $var;
             $req->closeCursor();
         }
-        
+
+    public function insert($table,$obj)
+        {
+            $db = Database::connect();
+            $req = $db->prepare('INSERT INTO  ' .$table. ' ($obj) values (?) ');
+            $req->execute();
+            $req->closeCursor();
+        }
+       public function setObject($obj,$data)
+       {
+           $var = [];
+           $var = new $obj($data);
+           return $var;
+       }
     }

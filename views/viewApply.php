@@ -1,6 +1,4 @@
-
-
-  <main id="main">
+<main id="main">
     
     <!-- ======= Breadcrumbs Section ======= -->
     <section class="breadcrumbs">
@@ -9,21 +7,23 @@
         <div class="d-flex justify-content-between align-items-center">
           <h2>Inner Page</h2>
           <ol>
-            <li><a href="../index.php">Home</a></li>
+            <li><a href="home">Home</a></li>
             <li>Apply</li>
+            
           </ol>
         </div>
+        
         <div class="container" >	
 		     <div class="divider"></div>
 		     <div class="heading"><h2>Postuler</h2></div>	
 		     <div class="row">
 		     	<div class="col-lg-10 offset-lg-1">
-		     		<form id="contact-form" method="post" action="apply.php" role="form" enctype="multipart/form-data">
+		     		<form id="contact-form" method="post" action="http://localhost:81/MambaProBeta/MambaPro_beta/apply" role="form" enctype="multipart/form-data">
 		     			<div class="row">
 		     				<div class="col-md-6">
 		     					<label for="firstname">Prenom<span class="blue"> *</span></label>
 		     					<input type="text" id="firstname" name="firstname" class="form-control" placeholder="votre prenom" >
-                                 <p class="comments"> <span class="help-inline"></span> </p>
+                                 <p class="comments"> <span class="help-inline"><?=$nameError?></span> </p>
                                  
 		     				</div>
 		     				<div class="col-md-6">
